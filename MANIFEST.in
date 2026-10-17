@@ -1,0 +1,3 @@
+include vendor/*.h vendor/*.cpp vendor/simdutf-LICENSE-* src/*.cpp
+include bench.py doc/make_charts.py
+recursive-include tests *.py
