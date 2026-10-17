@@ -428,11 +428,13 @@ PyObject *b64decode(PyObject *, PyObject *const *args, Py_ssize_t nargs,
         known_alphabet = false;
       }
     }
+    // Only bool and int values of validate mean the same thing in every
+    // Python version: before 3.12, binascii rejects other types.
     int validate = 0;
     if (params[2] != nullptr) {
-      validate = PyObject_IsTrue(params[2]);
-      if (validate < 0) {
-        PyErr_Clear();
+      if (PyLong_Check(params[2])) {
+        validate = PyObject_IsTrue(params[2]);
+      } else {
         known_alphabet = false;
       }
     }
